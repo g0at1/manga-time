@@ -1,0 +1,35 @@
+<h2 class="title">Manga Library</h2>
+
+<label class="search">
+  <input
+    class="search__input"
+    type="text"
+    placeholder="Search by title…"
+    [(ngModel)]="query"
+    (ngModelChange)="onQueryChange($event)"
+    aria-label="Search manga"
+  />
+  <button
+    *ngIf="query"
+    type="button"
+    class="search__clear"
+    (click)="query = ''; onQueryChange('')"
+    aria-label="Clear search"
+  >
+    ×
+  </button>
+</label>
+
+<div *ngIf="isLoading" class="muted">Loading…</div>
+<div *ngIf="!isLoading && mangas.length === 0" class="muted">No manga found.</div>
+
+<ul *ngIf="!isLoading && mangas.length > 0" class="list">
+  <li *ngFor="let m of mangas; trackBy: trackById" class="item">
+    <a [routerLink]="['/manga', m.id]" class="item__link">
+      <span class="item__title">{{ m.title }}</span>
+      <span class="badge" [title]="(m.totalVolumes ?? '?') + ' volumes'">
+        {{ m.totalVolumes ?? '?' }}
+      </span>
+    </a>
+  </li>
+</ul>

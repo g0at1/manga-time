@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaTime.Api", "MangaTime.Api\MangaTime.Api.csproj", "{AF92591F-EFDD-4A4E-9C97-E986AD4493E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaTime.Core", "MangaTime.Core\MangaTime.Core.csproj", "{7F5AA4F1-0976-4686-9BF9-F589179E79D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaTime.Infrastructure", "MangaTime.Infrastructure\MangaTime.Infrastructure.csproj", "{D1CB60D5-F28E-423A-AE7A-6DBE89EF1E80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF92591F-EFDD-4A4E-9C97-E986AD4493E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF92591F-EFDD-4A4E-9C97-E986AD4493E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF92591F-EFDD-4A4E-9C97-E986AD4493E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF92591F-EFDD-4A4E-9C97-E986AD4493E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F5AA4F1-0976-4686-9BF9-F589179E79D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F5AA4F1-0976-4686-9BF9-F589179E79D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F5AA4F1-0976-4686-9BF9-F589179E79D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F5AA4F1-0976-4686-9BF9-F589179E79D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1CB60D5-F28E-423A-AE7A-6DBE89EF1E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1CB60D5-F28E-423A-AE7A-6DBE89EF1E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1CB60D5-F28E-423A-AE7A-6DBE89EF1E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1CB60D5-F28E-423A-AE7A-6DBE89EF1E80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

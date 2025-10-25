@@ -1,0 +1,35 @@
+<ng-container *ngIf="data as d">
+  <header class="header">
+    <h1 class="title">{{ d.manga.title }}</h1>
+
+    <div class="progress" *ngIf="progress as p">
+      <div class="progress__bar" [style.--pct.%]="p.percent"></div>
+      <div class="progress__text">
+        <strong>{{ p.read }}</strong> / {{ p.total }} ({{ p.percent }}%)
+      </div>
+    </div>
+  </header>
+
+  <section class="volumes">
+    <label
+      class="volume-tile"
+      *ngFor="let v of d.volumes; trackBy: trackByVolumeId"
+      [class.read]="readSet.has(v.id)"
+    >
+      <input
+        #cb
+        type="checkbox"
+        class="volume-tile__checkbox"
+        [checked]="readSet.has(v.id)"
+        (change)="onToggle(v.id, cb.checked)"
+      />
+
+      <span class="volume-tile__check" aria-hidden="true">✓</span>
+
+      <div class="volume-tile__content">
+        <div class="volume-tile__title">Tom {{ v.number }}</div>
+        <div class="volume-tile__subtitle" *ngIf="v.title">— {{ v.title }}</div>
+      </div>
+    </label>
+  </section>
+</ng-container>

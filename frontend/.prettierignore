@@ -1,0 +1,9 @@
+# Ignore dependencies
+node_modules
+dist
+
+# Ignore lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.angular
