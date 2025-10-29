@@ -1,9 +1,11 @@
+using System.Security.Claims;
+
+using MangaTime.Core.Entities;
+using MangaTime.Infrastructure.Data;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using MangaTime.Infrastructure.Data;
-using MangaTime.Core.Entities;
 
 [Authorize]
 [ApiController]

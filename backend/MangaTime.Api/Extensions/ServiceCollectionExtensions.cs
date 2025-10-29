@@ -1,6 +1,8 @@
 using System.Text;
+
 using MangaTime.Core.Interfaces;
 using MangaTime.Infrastructure.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

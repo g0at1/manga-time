@@ -1,4 +1,4 @@
-<h2 class="title">Manga Library</h2>
+<h2 class="title">Manga List</h2>
 
 <label class="search">
   <input
@@ -23,13 +23,21 @@
 <div *ngIf="isLoading" class="muted">Loading…</div>
 <div *ngIf="!isLoading && mangas.length === 0" class="muted">No manga found.</div>
 
-<ul *ngIf="!isLoading && mangas.length > 0" class="list">
-  <li *ngFor="let m of mangas; trackBy: trackById" class="item">
-    <a [routerLink]="['/manga', m.id]" class="item__link">
-      <span class="item__title">{{ m.title }}</span>
-      <span class="badge" [title]="(m.totalVolumes ?? '?') + ' volumes'">
-        {{ m.totalVolumes ?? '?' }}
-      </span>
-    </a>
-  </li>
-</ul>
+<div *ngIf="!isLoading && mangas.length > 0" class="panel">
+  <ul class="mlist">
+    <li *ngFor="let m of mangas; trackBy: trackById" class="mlist__row">
+      <a [routerLink]="['/manga', m.id]" class="mlist__link">
+        <img
+          class="mlist__cover"
+          [src]="m.coverUrl || 'manga-placeholder.svg'"
+          [alt]="m.title"
+          (error)="onImgError($event)"
+        />
+        <div class="mlist__meta">
+          <div class="mlist__title">{{ m.title }}</div>
+          <div class="mlist__author">{{ m.author }}</div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

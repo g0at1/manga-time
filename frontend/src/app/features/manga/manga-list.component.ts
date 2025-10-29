@@ -54,4 +54,8 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  onImgError(e: Event) {
+    (e.target as HTMLImageElement).src = 'manga-placeholder.svg';
+  }
 }

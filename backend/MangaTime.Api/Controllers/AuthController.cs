@@ -1,11 +1,13 @@
+using System.Security.Cryptography;
+using System.Text;
+
 using MangaTime.Core.DTOs;
 using MangaTime.Core.Entities;
 using MangaTime.Core.Interfaces;
 using MangaTime.Infrastructure.Data;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MangaTime.Api.Controllers;
 

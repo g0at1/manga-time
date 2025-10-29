@@ -1,4 +1,4 @@
-@MangaTime_HostAddress = http://localhost:5000
+@MangaTime_HostAddress = http://localhost:5150
 
 GET {{MangaTime_HostAddress}}/weatherforecast/
 Accept: application/json

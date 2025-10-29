@@ -8,4 +8,5 @@ public interface IMangaService
     Task<MangaDetailDto> GetAsync(Guid id);
     Task<MangaDto> CreateAsync(CreateMangaRequest req);
     Task BulkVolumesAsync(Guid mangaId, BulkVolumesRequest req);
+    Task<MangaDto?> UpdateAsync(Guid id, UpdateMangaRequest req);
 }
