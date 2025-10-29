@@ -2,6 +2,7 @@ using MangaTime.Core.DTOs;
 using MangaTime.Core.Entities;
 using MangaTime.Core.Interfaces;
 using MangaTime.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace MangaTime.Infrastructure.Services;
@@ -19,7 +20,7 @@ public class MangaService : IMangaService
         var total = await src.CountAsync();
         var items = await src.OrderBy(m => m.Title)
             .Skip((page - 1) * pageSize).Take(pageSize)
-            .Select(m => new MangaDto(m.Id, m.Title, m.CoverUrl, m.TotalVolumes))
+            .Select(m => new MangaDto(m.Id, m.Title, m.CoverUrl, m.TotalVolumes, m.Author))
             .ToListAsync();
         return new(items, total);
     }
@@ -29,7 +30,7 @@ public class MangaService : IMangaService
         var m = await _db.Mangas.AsNoTracking()
             .Include(x => x.Volumes)
             .SingleAsync(x => x.Id == id);
-        var dto = new MangaDto(m.Id, m.Title, m.CoverUrl, m.TotalVolumes);
+        var dto = new MangaDto(m.Id, m.Title, m.CoverUrl, m.TotalVolumes, m.Author);
         var vols = m.Volumes.OrderBy(v => v.Number)
             .Select(v => new VolumeDto(v.Id, v.MangaId, v.Number, v.Title));
         return new(dto, vols);
@@ -37,9 +38,9 @@ public class MangaService : IMangaService
 
     public async Task<MangaDto> CreateAsync(CreateMangaRequest req)
     {
-        var m = new Manga { Id = Guid.NewGuid(), Title = req.Title, Author = null, TotalVolumes = req.TotalVolumes, CoverUrl = req.CoverUrl };
+        var m = new Manga { Id = Guid.NewGuid(), Title = req.Title, Author = req.Author, TotalVolumes = req.TotalVolumes, CoverUrl = req.CoverUrl };
         _db.Mangas.Add(m); await _db.SaveChangesAsync();
-        return new MangaDto(m.Id, m.Title, m.CoverUrl, m.TotalVolumes);
+        return new MangaDto(m.Id, m.Title, m.CoverUrl, m.TotalVolumes, m.Author);
     }
 
     public async Task BulkVolumesAsync(Guid mangaId, BulkVolumesRequest req)
@@ -49,5 +50,19 @@ public class MangaService : IMangaService
             list.Add(new Volume { Id = Guid.NewGuid(), MangaId = mangaId, Number = i });
         _db.Volumes.AddRange(list);
         await _db.SaveChangesAsync();
+    }
+
+    public async Task<MangaDto?> UpdateAsync(Guid id, UpdateMangaRequest req)
+    {
+        var manga = await _db.Mangas.FindAsync(id);
+        if (manga == null) return null;
+
+        manga.Title = req.Title;
+        manga.Author = req.Author;
+        manga.CoverUrl = req.CoverUrl;
+
+        await _db.SaveChangesAsync();
+
+        return new MangaDto(Id: manga.Id, Title: manga.Title, CoverUrl: manga.CoverUrl, TotalVolumes: manga.TotalVolumes, manga.Author);
     }
 }

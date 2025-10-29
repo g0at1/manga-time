@@ -1,8 +1,10 @@
+using System.Security.Claims;
+
 using MangaTime.Core.DTOs;
 using MangaTime.Core.Interfaces;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace MangaTime.Api.Controllers;
 

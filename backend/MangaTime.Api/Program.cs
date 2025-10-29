@@ -1,9 +1,10 @@
-using MangaTime.Infrastructure.Services;
-using MangaTime.Infrastructure.Data;
 using MangaTime.Api.Extensions;
 using MangaTime.Api.Middleware;
-using Microsoft.EntityFrameworkCore;
+using MangaTime.Infrastructure.Data;
 using MangaTime.Infrastructure.Seed;
+using MangaTime.Infrastructure.Services;
+
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

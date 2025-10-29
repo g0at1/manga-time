@@ -1,4 +1,5 @@
 using MangaTime.Core.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace MangaTime.Infrastructure.Data;
