@@ -1,0 +1,63 @@
+name: Prettier Check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js and pnpm
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.12.1
+          registry-url: https://registry.npmjs.org/
+          scope: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies using pnpm
+        run: pnpm install
+
+      - name: Get changed files
+        if: ${{ github.event_name == 'pull_request' }}
+        id: get-changed-files
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const changedFiles = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+              }
+            );
+            return changedFiles.filter(file=> file.status !== "removed").map(file => file.filename).join(' ');
+
+      - name: Show changed files (line by line)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "Changed files:"
+          for file in ${{ steps.get-changed-files.outputs.result }}; do
+            echo " - $file"
+          done
+
+      - name: Check for Prettier errors
+        run: |
+          CHANGED_FILES=$(echo ${{ steps.get-changed-files.outputs.result }})
+          if [ -n "$CHANGED_FILES" ]; then
+            pnpm prettier --check $CHANGED_FILES
+          fi
