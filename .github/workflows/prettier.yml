@@ -61,6 +61,7 @@ jobs:
           done
 
       - name: Check for Prettier errors
+        working-directory: frontend
         run: |
           CHANGED_FILES=$(echo ${{ steps.get-changed-files.outputs.result }})
           if [ -n "$CHANGED_FILES" ]; then
