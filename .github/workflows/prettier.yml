@@ -28,7 +28,8 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies using pnpm
+      - name: Install dependencies (frontend)
+        working-directory: frontend
         run: pnpm install
 
       - name: Get changed files
@@ -45,9 +46,13 @@ jobs:
                 pull_number: context.payload.pull_request.number,
               }
             );
-            return changedFiles.filter(file=> file.status !== "removed").map(file => file.filename).join(' ');
+            const files = changedFiles
+              .filter(f => f.status !== "removed")
+              .map(f => f.filename)
+              .join(' ');
+            return files;
 
-      - name: Show changed files (line by line)
+      - name: Show changed files
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           echo "Changed files:"
