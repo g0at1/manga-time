@@ -1,0 +1,32 @@
+name: Prefix issue title with TCB-{id}
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  prefix-issue-title:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Update issue title
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue
+            const currentTitle = issue.title
+            const issueNumber = issue.number
+            const newTitle = `MT-${issueNumber}: ${currentTitle}`
+
+            if (!currentTitle.startsWith(`MT-${issueNumber}:`)) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                title: newTitle
+              })
+              core.info(`Updated issue #${issueNumber} title to "${newTitle}"`)
+            } else {
+              core.info(`Issue #${issueNumber} already has correct prefix`)
+            }
