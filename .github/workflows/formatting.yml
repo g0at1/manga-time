@@ -1,0 +1,156 @@
+name: Code Formatting Check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  frontend_prettier:
+    name: Frontend (Prettier)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.12.1'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies (frontend)
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile
+
+      - name: Get changed files
+        if: ${{ github.event_name == 'pull_request' }}
+        id: changed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100
+            });
+            const keep = new Set([
+              '.js','.ts','.tsx','.json','.scss','.css','.html','.md','.yml','.yaml'
+            ]);
+            const listed = files
+              .filter(f => f.status !== 'removed')
+              .map(f => f.filename)
+              .filter(p => p.startsWith('frontend/'))
+              .filter(p => keep.has(p.slice(p.lastIndexOf('.'))));
+            core.setOutput('list', JSON.stringify(listed));
+
+      - name: Show changed files
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "${{ steps.changed.outputs.list }}"
+
+      - name: Prettier check
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: frontend
+        shell: bash
+        run: |
+          FILES=$(jq -r '.[]?' <<< '${{ steps.changed.outputs.list }}')
+          if [ -z "$FILES" ]; then
+            echo "No relevant frontend files changed."
+            exit 0
+          fi
+          echo "Running Prettier on changed files:"
+          printf '%s\0' $FILES | xargs -0 pnpm prettier --check
+
+      - name: Prettier check
+        if: ${{ github.event_name == 'push' }}
+        working-directory: frontend
+        run: pnpm prettier --check .
+
+  backend_dotnet_format:
+    name: Backend (.NET format)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            7.0.x
+
+      - name: Restore tools (if tools manifest exists)
+        run: |
+          if [ -f "./backend/.config/dotnet-tools.json" ] || [ -f "./.config/dotnet-tools.json" ]; then
+            dotnet tool restore
+          else
+            echo "No tools manifest found; installing dotnet-format globally..."
+            dotnet tool install -g dotnet-format
+            echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+          fi
+
+      - name: Restore backend
+        working-directory: backend
+        run: dotnet restore
+
+      - name: Get changed files
+        if: ${{ github.event_name == 'pull_request' }}
+        id: changed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100
+            });
+            const exts = new Set(['.cs','.editorconfig','.ruleset','.sln','.csproj','.props','.targets']);
+            const listed = files
+              .filter(f => f.status !== 'removed')
+              .map(f => f.filename)
+              .filter(p => p.startsWith('backend/'))
+              .filter(p => exts.has(p.slice(p.lastIndexOf('.'))));
+            core.setOutput('list', JSON.stringify(listed));
+
+      - name: Show changed files
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "${{ steps.changed.outputs.list }}"
+
+      - name: dotnet format
+        if: ${{ github.event_name == 'pull_request' }}
+        working-directory: backend
+        shell: bash
+        run: |
+          FILES=$(jq -r '.[]?' <<< '${{ steps.changed.outputs.list }}')
+          if [ -z "$FILES" ]; then
+            echo "No relevant backend files changed."
+            exit 0
+          fi
+          echo "Running dotnet format (verify) on changed files:"
+          INCLUDES=""
+          for f in $FILES; do
+            REL="${f#backend/}"
+            INCLUDES="$INCLUDES --include \"$REL\""
+          done
+          # shellcheck disable=SC2086
+          eval dotnet format --verify-no-changes --no-restore $INCLUDES
+
+      - name: dotnet format
+        if: ${{ github.event_name == 'push' }}
+        working-directory: backend
+        run: dotnet format --verify-no-changes --no-restore
