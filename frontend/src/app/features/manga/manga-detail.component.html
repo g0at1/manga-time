@@ -3,7 +3,7 @@
     <h1 class="title">{{ d.manga.title }}</h1>
 
     <div class="progress" *ngIf="progress as p">
-      <div class="progress__bar" [style.--pct.%]="p.percent"></div>
+      <div class="progress__bar" [style.width.%]="p.percent"></div>
       <div class="progress__text">
         <strong>{{ p.read }}</strong> / {{ p.total }} ({{ p.percent }}%)
       </div>

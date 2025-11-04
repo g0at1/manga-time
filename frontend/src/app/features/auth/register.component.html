@@ -1,0 +1,90 @@
+<section class="auth-wrapper">
+  <div class="auth-card">
+    <h1 class="title">Create Account</h1>
+    <p class="subtitle">Fill in your details to register.</p>
+
+    <form #form="ngForm" (ngSubmit)="register(form)" novalidate>
+      <!-- Email -->
+      <div class="field">
+        <label class="label" for="email">Email</label>
+        <div class="input-underline">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            required
+            email
+            [class.invalid]="form.submitted && form.controls['email']?.invalid"
+          />
+          <span class="underline"></span>
+        </div>
+        <small class="error" *ngIf="form.submitted && form.controls['email']?.errors?.['required']"
+          >Email is required.</small
+        >
+        <small class="error" *ngIf="form.submitted && form.controls['email']?.errors?.['email']"
+          >Enter a valid email.</small
+        >
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label class="label" for="password">Password</label>
+        <div class="input-underline">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            [(ngModel)]="password"
+            required
+            minlength="6"
+            [class.invalid]="form.submitted && form.controls['password']?.invalid"
+          />
+          <span class="underline"></span>
+        </div>
+        <small
+          class="error"
+          *ngIf="form.submitted && form.controls['password']?.errors?.['required']"
+          >Password is required.</small
+        >
+        <small
+          class="error"
+          *ngIf="form.submitted && form.controls['password']?.errors?.['minlength']"
+          >Minimum 6 characters.</small
+        >
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label class="label" for="confirm">Confirm Password</label>
+        <div class="input-underline">
+          <input
+            id="confirm"
+            name="confirm"
+            type="password"
+            [(ngModel)]="confirmPassword"
+            required
+            [class.invalid]="form.submitted && confirmPassword && confirmPassword !== password"
+          />
+          <span class="underline"></span>
+        </div>
+        <small
+          class="error"
+          *ngIf="form.submitted && confirmPassword && confirmPassword !== password"
+          >Passwords do not match.</small
+        >
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn primary" [disabled]="loading" [class.loading]="loading">
+          <span class="spinner" *ngIf="loading" aria-hidden="true"></span>
+          {{ loading ? 'Creating…' : 'Create Account' }}
+        </button>
+        <a routerLink="/auth/login" class="link">Back to login</a>
+      </div>
+
+      <div class="alert success" *ngIf="successMsg">{{ successMsg }}</div>
+      <div class="alert error" *ngIf="errorMsg">{{ errorMsg }}</div>
+    </form>
+  </div>
+</section>

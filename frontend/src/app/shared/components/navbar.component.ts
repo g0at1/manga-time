@@ -1,16 +1,33 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
-  template: `
-    <nav class="p-4 bg-gray-900 text-white flex space-x-4">
-      <a routerLink="/manga" class="hover:underline">Manga</a>
-      <a routerLink="/library" class="hover:underline">My Library</a>
-      <a routerLink="/auth/login" class="ml-auto hover:underline">Logout</a>
-    </nav>
-  `,
+  imports: [RouterLink, RouterLinkActive],
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  isMenuOpen = false;
+  isScrolled = false;
+
+  constructor(private router: Router) {}
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+
+  async logout() {
+    await this.router.navigateByUrl('/auth/login');
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    this.isScrolled = window.scrollY > 4;
+  }
+}

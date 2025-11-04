@@ -1,0 +1,236 @@
+:host {
+  --bg: #0b1220;
+  --bg-elev: rgba(17, 24, 39, 0.7);
+  --stroke: rgba(148, 163, 184, 0.12);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #60a5fa;
+  --danger: #f87171;
+
+  display: block;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background:
+    radial-gradient(80rem 40rem at -10% 0%, rgba(96, 165, 250, 0.08), transparent 60%),
+    radial-gradient(60rem 30rem at 110% -10%, rgba(129, 140, 248, 0.08), transparent 60%), var(--bg);
+  border-bottom: 1px solid var(--stroke);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+
+  &--scrolled {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.nav__inner {
+  height: 56px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  color: var(--text);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+
+  &__logo {
+    width: 28px;
+    height: 28px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(96, 165, 250, 0.15);
+  }
+  &__name {
+    font-size: 1.05rem;
+  }
+  &__accent {
+    color: var(--accent);
+  }
+}
+
+.links {
+  display: none;
+  gap: 10px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @media (min-width: 900px) {
+    display: inline-flex;
+  }
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+
+  &:hover {
+    background: rgba(148, 163, 184, 0.12);
+  }
+
+  &.is-active::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 6px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform-origin: left center;
+    animation: grow 220ms ease forwards;
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--stroke);
+  background: transparent;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease;
+
+  &--ghost:hover {
+    background: rgba(148, 163, 184, 0.12);
+    border-color: rgba(148, 163, 184, 0.22);
+  }
+}
+
+.hamburger {
+  display: inline-grid;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--stroke);
+  background: transparent;
+  cursor: pointer;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+
+  span {
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    display: block;
+  }
+
+  &:hover {
+    background: rgba(148, 163, 184, 0.12);
+  }
+}
+
+.mobile {
+  display: none;
+
+  @media (max-width: 899px) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+
+  &--open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.mobile__panel {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background: #0f172a;
+  border-bottom: 1px solid var(--stroke);
+  display: grid;
+  padding: 8px;
+  gap: 6px;
+}
+
+.mitem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--stroke);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease;
+
+  &:hover {
+    background: rgba(148, 163, 184, 0.12);
+    border-color: rgba(148, 163, 184, 0.22);
+  }
+
+  &.is-active {
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.35);
+  }
+
+  &--danger {
+    border-color: rgba(248, 113, 113, 0.35);
+    color: #fecaca;
+
+    &:hover {
+      background: rgba(248, 113, 113, 0.08);
+      border-color: rgba(248, 113, 113, 0.55);
+    }
+  }
+}
