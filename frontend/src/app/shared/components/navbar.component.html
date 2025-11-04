@@ -1,0 +1,62 @@
+<header class="nav" [class.nav--scrolled]="isScrolled" role="banner">
+  <nav class="nav__inner" role="navigation" aria-label="Main">
+    <!-- Brand -->
+    <a class="brand" routerLink="/manga" (click)="closeMenu()">
+      <span class="brand__logo" aria-hidden="true">🍥</span>
+      <span class="brand__name">Manga<span class="brand__accent">Time</span></span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="links" role="menubar">
+      <li role="none">
+        <a
+          routerLink="/manga"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="link"
+          role="menuitem"
+          (click)="closeMenu()"
+          >Manga</a
+        >
+      </li>
+      <li role="none">
+        <a
+          routerLink="/library"
+          routerLinkActive="is-active"
+          class="link"
+          role="menuitem"
+          (click)="closeMenu()"
+          >My Library</a
+        >
+      </li>
+    </ul>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn--ghost" (click)="logout()" aria-label="Logout">Logout</button>
+
+      <!-- Mobile toggle -->
+      <button class="hamburger" type="button" aria-label="Toggle menu" (click)="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile panel -->
+  <div class="mobile" [class.mobile--open]="isMenuOpen" (click)="closeMenu()">
+    <div class="mobile__panel" (click)="$event.stopPropagation()">
+      <a
+        routerLink="/manga"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="mitem"
+        (click)="closeMenu()"
+        >Manga</a
+      >
+      <a routerLink="/library" routerLinkActive="is-active" class="mitem" (click)="closeMenu()"
+        >My Library</a
+      >
+      <button class="mitem mitem--danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>

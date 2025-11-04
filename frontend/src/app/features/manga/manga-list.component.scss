@@ -11,7 +11,10 @@
     'Noto Sans',
     'Liberation Sans',
     sans-serif;
-  color: #111827;
+  color: #e5e7eb;
+  background: #0b1220;
+  min-height: 100vh;
+  padding-top: 50px;
 }
 
 .title {
@@ -19,28 +22,35 @@
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.01em;
+  color: #f3f4f6;
+  text-align: center;
 }
 
 .search {
   position: relative;
   display: block;
   margin-bottom: 12px;
+
   &__input {
     width: 100%;
     padding: 10px 36px 10px 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #1f2937;
     border-radius: 8px;
     font-size: 14px;
     outline: none;
-    background: transparent;
+    background: #111827;
+    color: #f3f4f6;
+
     &::placeholder {
-      color: #9ca3af;
+      color: #6b7280;
     }
+
     &:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
     }
   }
+
   &__clear {
     position: absolute;
     right: 6px;
@@ -50,25 +60,26 @@
     background: transparent;
     font-size: 18px;
     line-height: 1;
-    color: #6b7280;
+    color: #9ca3af;
     cursor: pointer;
+
     &:hover {
-      color: #374151;
+      color: #f3f4f6;
     }
   }
 }
 
 .muted {
-  color: #6b7280;
+  color: #9ca3af;
   font-size: 14px;
   margin: 6px 0 12px;
 }
 
 .panel {
-  background: #fff;
+  background: #111827;
   border-radius: 22px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 2px 10px rgba(17, 24, 39, 0.04);
+  border: 1px solid #1f2937;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
   padding: 8px 0;
 }
 
@@ -77,11 +88,13 @@
   margin: 0;
   padding: 0;
 }
+
 .mlist__row {
   margin: 0;
-}
-.mlist__row + .mlist__row {
-  border-top: 1px solid #eef0f3;
+
+  & + & {
+    border-top: 1px solid #1f2937;
+  }
 }
 
 .mlist__link {
@@ -90,8 +103,13 @@
   gap: 12px;
   align-items: center;
   padding: 12px 16px;
-  color: inherit;
+  color: #f3f4f6;
   text-decoration: none;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #1f2937;
+  }
 }
 
 .mlist__cover {
@@ -99,19 +117,22 @@
   height: 56px;
   object-fit: cover;
   border-radius: 12px;
-  background: #f3f4f6;
+  background: #0f172a;
 }
 
 .mlist__meta {
   display: grid;
   gap: 2px;
 }
+
 .mlist__title {
   font-weight: 800;
   font-size: 18px;
   line-height: 1.1;
+  color: #f9fafb;
 }
+
 .mlist__author {
   font-size: 14px;
-  color: #6b7280;
+  color: #9ca3af;
 }
