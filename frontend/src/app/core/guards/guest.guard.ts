@@ -2,10 +2,10 @@ import { inject } from '@angular/core';
 import { CanActivateFn, CanMatchFn, Router, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-function checkAuth(): true | UrlTree {
+function checkGuest(): true | UrlTree {
   const auth = inject(AuthService);
   const router = inject(Router);
-  return auth.isAuthenticated() ? true : router.createUrlTree(['/auth/login']);
+  return auth.isAuthenticated() ? router.createUrlTree(['/manga']) : true;
 }
 
-export const AuthGuard: CanActivateFn & CanMatchFn = () => checkAuth();
+export const GuestGuard: CanActivateFn & CanMatchFn = () => checkGuest();

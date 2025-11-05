@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,10 @@ export class NavbarComponent {
   isMenuOpen = false;
   isScrolled = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -22,8 +26,9 @@ export class NavbarComponent {
     this.isMenuOpen = false;
   }
 
-  async logout() {
-    await this.router.navigateByUrl('/auth/login');
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 
   @HostListener('window:scroll')

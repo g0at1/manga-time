@@ -26,7 +26,7 @@ public class JwtTokenService : IJwtTokenService
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
             issuer: _cfg["Jwt:Issuer"], audience: _cfg["Jwt:Audience"],
-            claims: claims, expires: DateTime.UtcNow.AddDays(7), signingCredentials: creds);
+            claims: claims, expires: DateTime.UtcNow.AddMinutes(30), signingCredentials: creds, notBefore: DateTime.UtcNow);
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
