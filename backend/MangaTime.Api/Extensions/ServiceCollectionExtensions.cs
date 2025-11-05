@@ -30,7 +30,8 @@ public static class ServiceCollectionExtensions
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = cfg["Jwt:Issuer"],
                     ValidAudience = cfg["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ClockSkew = TimeSpan.FromMinutes(1)
                 };
             });
 
