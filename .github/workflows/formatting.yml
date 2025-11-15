@@ -65,9 +65,11 @@ jobs:
         working-directory: frontend
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-          CHANGED_FILES=$(echo "${{ steps.get-changed-files.outputs.result }}" \
-            | tr ' ' '\n' \
-            | grep -E '^frontend/.*\.(js|ts|tsx|json|scss|css|html|md|yml|yaml)$' || true)
+            CHANGED_FILES=$(echo "${{ steps.get-changed-files.outputs.result }}" \
+              | tr ' ' '\n' \
+              | grep -E '^frontend/.*\.(js|ts|tsx|json|scss|css|html|md|yml|yaml)$' \
+              | sed 's/^frontend\///' || true)
+
             if [ -n "$CHANGED_FILES" ]; then
               echo "Running Prettier on changed files:"
               echo "$CHANGED_FILES"
