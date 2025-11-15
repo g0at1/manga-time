@@ -94,16 +94,43 @@
         </button>
 
         <div class="mlist__menu" *ngIf="openMenuId === m.id">
-          <button type="button" class="mlist__menu-item" (click)="onEdit(m, $event)">Edit</button>
+          <button type="button" class="mlist__menu-item" (click)="onEdit(m, $event)">
+            <span class="mlist__menu-icon">✎</span>
+            <span class="mlist__menu-label">Edit</span>
+          </button>
+
           <button
             type="button"
             class="mlist__menu-item mlist__menu-item--danger"
-            (click)="onDelete(m, $event)"
+            (click)="openDeleteModal(m, $event)"
           >
-            Delete
+            <span class="mlist__menu-icon">🗑</span>
+            <span class="mlist__menu-label">Delete</span>
           </button>
         </div>
       </div>
     </li>
   </ul>
+</div>
+<div class="modal-backdrop" *ngIf="deleteConfirmVisible" (click)="closeDeleteModal()"></div>
+
+<div class="modal" *ngIf="deleteConfirmVisible" (click)="closeDeleteModal()">
+  <div class="modal__content" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3 class="modal__title">Delete manga</h3>
+    </div>
+
+    <div class="modal__body">
+      <p>
+        Are you sure you want to delete
+        <strong>{{ mangaToDelete?.title }}</strong
+        >?
+      </p>
+    </div>
+
+    <div class="modal__footer">
+      <button type="button" class="btn btn--ghost" (click)="closeDeleteModal()">Cancel</button>
+      <button type="button" class="btn btn--danger" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
 </div>
