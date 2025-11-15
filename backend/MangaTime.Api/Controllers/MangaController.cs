@@ -54,4 +54,14 @@ public class MangaController : ControllerBase
             return NotFound();
         return Ok(updated);
     }
+
+    [HttpDelete("DeleteManga/{mangaId:guid}")]
+    public async Task<IActionResult> Delete(Guid mangaId)
+    {
+        var manga = await _db.Mangas.FindAsync(mangaId);
+        if (manga == null) return NoContent();
+        _db.Mangas.Remove(manga);
+        await _db.SaveChangesAsync();
+        return Ok();
+    }
 }

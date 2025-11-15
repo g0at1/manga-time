@@ -4,11 +4,13 @@
 
 <div *ngIf="showAddForm" class="panel panel--form">
   <div class="panel__header">
-    <h3 class="panel__title">Add Manga</h3>
+    <h3 class="panel__title">
+      {{ isEditing ? 'Edit Manga' : 'Add Manga' }}
+    </h3>
     <button type="button" class="panel__close" (click)="cancelAdd()">×</button>
   </div>
 
-  <form class="form" (ngSubmit)="createManga()">
+  <form class="form" (ngSubmit)="isEditing ? updateManga() : createManga()">
     <label class="form__field">
       <span class="form__label">Title</span>
       <input class="form__input" [(ngModel)]="newManga.title" name="title" required />
@@ -80,6 +82,28 @@
           <div class="mlist__author">{{ m.author }}</div>
         </div>
       </a>
+
+      <div class="mlist__actions">
+        <button
+          type="button"
+          class="mlist__menu-toggle"
+          (click)="toggleMenu(m.id, $event)"
+          aria-label="Open actions menu"
+        >
+          &#8942;
+        </button>
+
+        <div class="mlist__menu" *ngIf="openMenuId === m.id">
+          <button type="button" class="mlist__menu-item" (click)="onEdit(m, $event)">Edit</button>
+          <button
+            type="button"
+            class="mlist__menu-item mlist__menu-item--danger"
+            (click)="onDelete(m, $event)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
     </li>
   </ul>
 </div>
