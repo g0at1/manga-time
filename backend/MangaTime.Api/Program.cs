@@ -1,5 +1,6 @@
 using MangaTime.Api.Extensions;
 using MangaTime.Api.Middleware;
+using MangaTime.Core.Interfaces;
 using MangaTime.Infrastructure.Data;
 using MangaTime.Infrastructure.Seed;
 using MangaTime.Infrastructure.Services;
@@ -21,6 +22,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 // App services
 builder.Services.AddCoreServices(builder.Configuration);
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Email"));
+builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 
 // MVC & Swagger
 builder.Services.AddControllers();

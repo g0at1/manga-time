@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Volume> Volumes => Set<Volume>();
     public DbSet<LibraryItem> LibraryItems => Set<LibraryItem>();
     public DbSet<ReadVolume> ReadVolumes => Set<ReadVolume>();
+    public DbSet<EmailVerificationToken> EmailVerificationTokens => Set<EmailVerificationToken>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
