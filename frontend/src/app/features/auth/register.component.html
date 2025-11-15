@@ -15,7 +15,7 @@
             [(ngModel)]="email"
             required
             email
-            [class.invalid]="form.submitted && form.controls['email']?.invalid"
+            [class.invalid]="form.submitted && form.controls['email'].invalid"
           />
           <span class="underline"></span>
         </div>
@@ -38,7 +38,7 @@
             [(ngModel)]="password"
             required
             minlength="6"
-            [class.invalid]="form.submitted && form.controls['password']?.invalid"
+            [class.invalid]="form.submitted && form.controls['password'].invalid"
           />
           <span class="underline"></span>
         </div>

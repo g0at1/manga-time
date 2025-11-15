@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Manga, MangaDetail, Progress } from '../models/manga.model';
 import { LibraryItem } from '../models/library.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -55,5 +56,13 @@ export class ApiService {
 
   create(req: any) {
     return this.http.post<Manga>(`${this.base}/manga`, req);
+  }
+
+  delete(mangaId: string) {
+    return this.http.delete(`${this.base}/manga/DeleteManga/${mangaId}`);
+  }
+
+  update(id: string, body: any): Observable<any> {
+    return this.http.put<any>(`${this.base}/manga/${id}`, body);
   }
 }
