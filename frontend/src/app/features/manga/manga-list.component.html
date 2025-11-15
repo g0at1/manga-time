@@ -1,5 +1,47 @@
 <h2 class="title">Manga List</h2>
 
+<button class="btn btn--ghost" (click)="openAddForm()">+ Add Manga</button>
+
+<div *ngIf="showAddForm" class="panel panel--form">
+  <div class="panel__header">
+    <h3 class="panel__title">Add Manga</h3>
+    <button type="button" class="panel__close" (click)="cancelAdd()">×</button>
+  </div>
+
+  <form class="form" (ngSubmit)="createManga()">
+    <label class="form__field">
+      <span class="form__label">Title</span>
+      <input class="form__input" [(ngModel)]="newManga.title" name="title" required />
+    </label>
+
+    <label class="form__field">
+      <span class="form__label">Author</span>
+      <input class="form__input" [(ngModel)]="newManga.author" name="author" />
+    </label>
+
+    <label class="form__field">
+      <span class="form__label">Total Volumes</span>
+      <input
+        class="form__input"
+        type="number"
+        [(ngModel)]="newManga.totalVolumes"
+        name="totalVolumes"
+        min="1"
+      />
+    </label>
+
+    <label class="form__field">
+      <span class="form__label">Cover URL</span>
+      <input class="form__input" [(ngModel)]="newManga.coverUrl" name="coverUrl" />
+    </label>
+
+    <div class="form__actions">
+      <button type="submit" class="btn btn--primary">Save</button>
+      <button type="button" class="btn btn--ghost" (click)="cancelAdd()">Cancel</button>
+    </div>
+  </form>
+</div>
+
 <label class="search">
   <input
     class="search__input"
