@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { ApiService } from '../../core/services/api.service';
 import { Manga } from '../../core/models/manga.model';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   standalone: true,
@@ -30,8 +31,13 @@ export class MangaListComponent implements OnInit, OnDestroy {
   openMenuId: number | string | null = null;
   isEditing = false;
   editingId: string | undefined;
+  deleteConfirmVisible = false;
+  mangaToDelete: Manga | null = null;
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private notificationService: NotificationService,
+  ) {}
 
   ngOnInit() {
     this.load('');
@@ -71,7 +77,7 @@ export class MangaListComponent implements OnInit, OnDestroy {
   }
 
   openAddForm() {
-    this.showAddForm = true;
+    this.showAddForm = !this.showAddForm;
   }
 
   cancelAdd() {
@@ -92,9 +98,14 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.api.create(this.newManga).subscribe({
       next: (created) => {
         this.showAddForm = false;
+        this.notificationService.notifySuccess('Successfully created manga');
         this.api.bulkVolumes(created.id, 1, created.totalVolumes).subscribe({
-          next: () => console.log('Volumes created'),
+          next: () => {
+            this.notificationService.notifySuccess('Successfully created volumes');
+            console.log('Volumes created');
+          },
           error: (err) => {
+            this.notificationService.notifyError('Failed to create volumes');
             console.error('Failed to create volumes:', err);
           },
         });
@@ -106,7 +117,10 @@ export class MangaListComponent implements OnInit, OnDestroy {
           coverUrl: null,
         };
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        this.notificationService.notifyError('Failed to create manga');
+        console.error(err);
+      },
     });
   }
   toggleMenu(id: number | string, event: MouseEvent) {
@@ -122,26 +136,6 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.isEditing = true;
     this.editingId = manga.id;
     this.showAddForm = true;
-    this.openMenuId = null;
-  }
-
-  onDelete(manga: Manga, event: MouseEvent) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    const confirmed = confirm(`Delete "${manga.title}"?`);
-    if (!confirmed) {
-      this.openMenuId = null;
-      return;
-    }
-
-    this.api.delete(manga.id).subscribe({
-      next: () => {
-        this.mangas = this.mangas.filter((x) => x.id !== manga.id);
-        console.log('Deleted manga');
-      },
-      error: (err) => console.log(err),
-    });
     this.openMenuId = null;
   }
 
@@ -174,11 +168,47 @@ export class MangaListComponent implements OnInit, OnDestroy {
         if (idx !== -1) {
           this.mangas = [...this.mangas.slice(0, idx), updated, ...this.mangas.slice(idx + 1)];
         }
+        this.notificationService.notifySuccess('Successfully updated manga');
 
         this.cancelAdd();
       },
       error: (err: any) => {
+        this.notificationService.notifyError(`Failed to update manga: ${err}`);
         console.error('Update failed', err);
+      },
+    });
+  }
+
+  openDeleteModal(manga: Manga, event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    this.mangaToDelete = manga;
+    this.deleteConfirmVisible = true;
+    this.openMenuId = null;
+  }
+
+  closeDeleteModal() {
+    this.deleteConfirmVisible = false;
+    this.mangaToDelete = null;
+  }
+
+  confirmDelete() {
+    const manga = this.mangaToDelete;
+    if (!manga) {
+      return;
+    }
+
+    this.api.delete(manga.id).subscribe({
+      next: () => {
+        this.mangas = this.mangas.filter((x) => x.id !== manga.id);
+        this.notificationService.notifySuccess('Successfully deleted manga');
+        this.closeDeleteModal();
+      },
+      error: (err) => {
+        this.notificationService.notifyError('Failed to delete manga');
+        console.log(err);
+        this.closeDeleteModal();
       },
     });
   }
