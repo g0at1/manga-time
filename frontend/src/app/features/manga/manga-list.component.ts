@@ -19,6 +19,13 @@ export class MangaListComponent implements OnInit, OnDestroy {
 
   private query$ = new Subject<string>();
   private destroy$ = new Subject<void>();
+  showAddForm = false;
+  newManga = {
+    title: '',
+    author: null as string | null,
+    totalVolumes: null as number | null,
+    coverUrl: null as string | null,
+  };
 
   constructor(private api: ApiService) {}
 
@@ -57,5 +64,45 @@ export class MangaListComponent implements OnInit, OnDestroy {
 
   onImgError(e: Event) {
     (e.target as HTMLImageElement).src = 'manga-placeholder.svg';
+  }
+
+  openAddForm() {
+    this.showAddForm = true;
+  }
+
+  cancelAdd() {
+    this.showAddForm = false;
+    this.newManga = {
+      title: '',
+      author: null,
+      totalVolumes: null,
+      coverUrl: null,
+    };
+  }
+
+  createManga() {
+    if (!this.newManga.title.trim()) {
+      return;
+    }
+
+    this.api.create(this.newManga).subscribe({
+      next: (created) => {
+        this.showAddForm = false;
+        this.api.bulkVolumes(created.id, 1, created.totalVolumes).subscribe({
+          next: () => console.log('Volumes created'),
+          error: (err) => {
+            console.error('Failed to create volumes:', err);
+          },
+        });
+        this.mangas.unshift(created);
+        this.newManga = {
+          title: '',
+          author: null,
+          totalVolumes: null,
+          coverUrl: null,
+        };
+      },
+      error: (err) => console.error(err),
+    });
   }
 }

@@ -2,7 +2,7 @@ export interface Manga {
   id: string;
   title: string;
   coverUrl?: string;
-  totalVolumes?: number | null;
+  totalVolumes: number;
 }
 
 export interface Volume {

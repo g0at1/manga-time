@@ -52,4 +52,8 @@ export class ApiService {
   getReadVolumes(mangaId: string) {
     return this.http.get<string[]>(`${this.base}/reading/manga/${mangaId}`);
   }
+
+  create(req: any) {
+    return this.http.post<Manga>(`${this.base}/manga`, req);
+  }
 }
