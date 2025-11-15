@@ -25,6 +25,11 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./features/library/library.routes').then((m) => m.libraryRoutes),
   },
+  {
+    path: 'verify-email',
+    loadComponent: () =>
+      import('./features/auth/verify-email.component').then((m) => m.VerifyEmailComponent),
+  },
 
   { path: '**', redirectTo: '' },
 ];

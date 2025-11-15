@@ -74,4 +74,8 @@ export class AuthService {
       return null;
     }
   }
+
+  confirmEmail(token: string) {
+    return this.http.post<void>(`${this.api}/confirm-email`, { token });
+  }
 }

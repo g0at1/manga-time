@@ -6,4 +6,5 @@ public class User
     public string Email { get; set; } = default!;
     public string PasswordHash { get; set; } = default!;
     public ICollection<LibraryItem> Library { get; set; } = new List<LibraryItem>();
+    public bool IsEmailConfirmed { get; set; }
 }
