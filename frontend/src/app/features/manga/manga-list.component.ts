@@ -88,15 +88,12 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.api.create(this.newManga).subscribe({
       next: (created) => {
         this.showAddForm = false;
-        this.api
-          .bulkVolumes(created.id, 1, created.totalVolumes)
-          .subscribe({
-            next: () => console.log('Volumes created'),
-            error: (err) => {
-              // Handle or notify user about volume creation failure
-              console.error('Failed to create volumes:', err);
-            }
-          });
+        this.api.bulkVolumes(created.id, 1, created.totalVolumes).subscribe({
+          next: () => console.log('Volumes created'),
+          error: (err) => {
+            console.error('Failed to create volumes:', err);
+          },
+        });
         this.mangas.unshift(created);
         this.newManga = {
           title: '',
