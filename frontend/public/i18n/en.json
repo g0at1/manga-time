@@ -1,0 +1,13 @@
+{
+  "LOGIN": {
+    "ENTER-CREDENTIALS": "Enter your credentials to continue"
+  },
+  "NAVBAR": {
+    "MY-LIBRARY": "My library",
+    "LOGOUT": "Logout"
+  },
+  "REGISTER": {
+    "CREATE-ACCOUNT": "Create an account",
+    "DESCRIPTION": "Enter your details to register."
+  }
+}

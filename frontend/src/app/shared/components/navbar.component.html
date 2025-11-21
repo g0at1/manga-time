@@ -26,14 +26,18 @@
           class="link"
           role="menuitem"
           (click)="closeMenu()"
-          >My Library</a
+          >{{ 'NAVBAR.MY-LIBRARY' | translate }}</a
         >
       </li>
     </ul>
 
     <!-- Actions -->
     <div class="actions">
-      <button class="btn btn--ghost" (click)="logout()" aria-label="Logout">Logout</button>
+        <select class="lang-select" [value]="currentLang" (change)="changeLang($event)">
+            <option value="en">EN</option>
+            <option value="pl">PL</option>
+        </select>
+      <button class="btn btn--ghost" (click)="logout()" aria-label="Logout">{{ 'NAVBAR.LOGOUT' | translate }}</button>
 
       <!-- Mobile toggle -->
       <button class="hamburger" type="button" aria-label="Toggle menu" (click)="toggleMenu()">
@@ -54,7 +58,7 @@
         >Manga</a
       >
       <a routerLink="/library" routerLinkActive="is-active" class="mitem" (click)="closeMenu()"
-        >My Library</a
+        >{{ 'NAVBAR.MY-LIBRARY' | translate }}</a
       >
       <button class="mitem mitem--danger" (click)="logout()">Logout</button>
     </div>

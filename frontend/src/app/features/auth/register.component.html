@@ -1,7 +1,7 @@
 <section class="auth-wrapper">
   <div class="auth-card">
-    <h1 class="title">Create Account</h1>
-    <p class="subtitle">Fill in your details to register.</p>
+    <h1 class="title">{{ 'REGISTER.CREATE-ACCOUNT' | translate }}</h1>
+    <p class="subtitle">{{ 'REGISTER.DESCRIPTION' | translate }}</p>
 
     <form #form="ngForm" (ngSubmit)="register(form)" novalidate>
       <!-- Email -->

@@ -1,7 +1,7 @@
 <section class="auth-wrapper">
   <div class="auth-card">
     <h1 class="title">Login</h1>
-    <p class="subtitle">Enter your credentials to continue</p>
+    <p class="subtitle">{{ 'LOGIN.ENTER-CREDENTIALS' | translate }}</p>
 
     <form #form="ngForm" (ngSubmit)="login()" novalidate>
       <!-- Email -->

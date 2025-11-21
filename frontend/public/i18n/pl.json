@@ -1,0 +1,13 @@
+{
+  "LOGIN": {
+    "ENTER-CREDENTIALS": "Wprowadź swoje dane uwierzytelniające, aby kontynuować."
+  },
+  "NAVBAR": {
+    "MY-LIBRARY": "Moja biblioteka",
+    "LOGOUT": "Wyloguj"
+  },
+  "REGISTER": {
+    "CREATE-ACCOUNT": "Stwórz konto",
+    "DESCRIPTION": "Wpisz swoje dane, żeby się zarejestrować."
+  }
+}
