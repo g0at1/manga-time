@@ -46,8 +46,8 @@
   "VERIFY-EMAIL": {
     "TITLE": "Weryfikacja email",
     "VERIFYING": "Weryfikowanie twojego adresu email…",
-    "SUCCESS": "✅ Twój adres email został zweryfikowany. Możesz się teraz zalogować.",
-    "ERROR": "❌ Weryfikacja nieudana. Link jest nieprawidłowy lub wygasł."
+    "SUCCESS": "Twój adres email został zweryfikowany. Możesz się teraz zalogować.",
+    "ERROR": "Weryfikacja nieudana. Link jest nieprawidłowy lub wygasł."
   },
   "MANGA-LIST": {
     "TITLE": "Lista mang",

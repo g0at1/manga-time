@@ -46,8 +46,8 @@
   "VERIFY-EMAIL": {
     "TITLE": "Email verification",
     "VERIFYING": "Verifying your email…",
-    "SUCCESS": "✅ Your email has been verified. You can now log in.",
-    "ERROR": "❌ Verification failed. The link is invalid or expired."
+    "SUCCESS": "Your email has been verified. You can now log in.",
+    "ERROR": "Verification failed. The link is invalid or expired."
   },
   "MANGA-LIST": {
     "TITLE": "Manga List",
