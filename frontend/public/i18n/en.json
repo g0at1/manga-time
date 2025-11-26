@@ -74,7 +74,7 @@
   "MANGA-DETAIL": {
     "VOLUME": "Vol",
     "FAILED-UPDATE-STATUS": "Failed to update read status",
-    "MARK-PREVIOUS-READ": "Mark all previous tomes as read?"
+    "MARK-PREVIOUS-READ": "Mark all previous volumes as read?"
   },
   "LIBRARY": {
     "TITLE": "My Library"
