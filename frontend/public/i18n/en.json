@@ -8,6 +8,20 @@
   },
   "REGISTER": {
     "CREATE-ACCOUNT": "Create an account",
-    "DESCRIPTION": "Enter your details to register."
+    "DESCRIPTION": "Enter your details to register.",
+    "VALIDATION": {
+      "INVALID-EMAIL": "Incorrect email address",
+      "REQUIRED-EMAIL": "An email address is required",
+      "REQUIRED-PASSWORD": "Password required",
+      "PASSWORD-LENGTH": "Minimum 6 characters",
+      "PASSWORD-NOT-MATCH": "Passwords don't match"
+    },
+    "PASSWORD": "Password",
+    "CONFIRM-PASSWORD": "Confirm password",
+    "LOADING": {
+      "CREATING": "Creating",
+      "CREATE-ACCOUNT": "Create account"
+    },
+    "BACK": "Back to Login"
   }
 }

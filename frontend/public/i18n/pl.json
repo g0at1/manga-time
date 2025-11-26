@@ -8,6 +8,20 @@
   },
   "REGISTER": {
     "CREATE-ACCOUNT": "Stwórz konto",
-    "DESCRIPTION": "Wpisz swoje dane, żeby się zarejestrować."
+    "DESCRIPTION": "Wpisz swoje dane, żeby się zarejestrować.",
+    "VALIDATION": {
+      "INVALID-EMAIL": "Niepoprawny adres email",
+      "REQUIRED-EMAIL": "Adres email jest wymagany",
+      "REQUIRED-PASSWORD": "Hasło jest wymagane",
+      "PASSWORD-LENGTH": "Minimum 6 znaków",
+      "PASSWORD-NOT-MATCH": "Hasła się nie zgadzają"
+    },
+    "PASSWORD": "Hasło",
+    "CONFIRM-PASSWORD": "Potwierdź hasło",
+    "LOADING": {
+      "CREATING": "Tworzenie",
+      "CREATE-ACCOUNT": "Utwórz konto"
+    },
+    "BACK": "Powrót do logowania"
   }
 }
