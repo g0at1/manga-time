@@ -75,7 +75,9 @@
       <div class="actions">
         <button type="submit" class="btn primary" [disabled]="loading" [class.loading]="loading">
           <span class="spinner" *ngIf="loading" aria-hidden="true"></span>
-          {{ (loading ? 'REGISTER.LOADING.CREATING' : 'REGISTER.LOADING.CREATE-ACCOUNT') | translate }}
+          {{
+            (loading ? 'REGISTER.LOADING.CREATING' : 'REGISTER.LOADING.CREATE-ACCOUNT') | translate
+          }}
         </button>
         <a routerLink="/auth/login" class="link">{{ 'REGISTER.BACK' | translate }}</a>
       </div>
