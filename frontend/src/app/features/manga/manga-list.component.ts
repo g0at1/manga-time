@@ -100,14 +100,20 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.api.create(this.newManga).subscribe({
       next: (created) => {
         this.showAddForm = false;
-        this.notificationService.notifySuccess(this.translate.instant('MANGA-LIST.SUCCESS-CREATED'));
+        this.notificationService.notifySuccess(
+          this.translate.instant('MANGA-LIST.SUCCESS-CREATED'),
+        );
         this.api.bulkVolumes(created.id, 1, created.totalVolumes).subscribe({
           next: () => {
-            this.notificationService.notifySuccess(this.translate.instant('MANGA-LIST.SUCCESS-CREATED-VOLUMES'));
+            this.notificationService.notifySuccess(
+              this.translate.instant('MANGA-LIST.SUCCESS-CREATED-VOLUMES'),
+            );
             console.log('Volumes created');
           },
           error: (err) => {
-            this.notificationService.notifyError(this.translate.instant('MANGA-LIST.FAILED-CREATE-VOLUMES'));
+            this.notificationService.notifyError(
+              this.translate.instant('MANGA-LIST.FAILED-CREATE-VOLUMES'),
+            );
             console.error('Failed to create volumes:', err);
           },
         });
@@ -170,12 +176,16 @@ export class MangaListComponent implements OnInit, OnDestroy {
         if (idx !== -1) {
           this.mangas = [...this.mangas.slice(0, idx), updated, ...this.mangas.slice(idx + 1)];
         }
-        this.notificationService.notifySuccess(this.translate.instant('MANGA-LIST.SUCCESS-UPDATED'));
+        this.notificationService.notifySuccess(
+          this.translate.instant('MANGA-LIST.SUCCESS-UPDATED'),
+        );
 
         this.cancelAdd();
       },
       error: (err: any) => {
-        this.notificationService.notifyError(`${this.translate.instant('MANGA-LIST.FAILED-UPDATE')}: ${err}`);
+        this.notificationService.notifyError(
+          `${this.translate.instant('MANGA-LIST.FAILED-UPDATE')}: ${err}`,
+        );
         console.error('Update failed', err);
       },
     });
@@ -204,7 +214,9 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.api.delete(manga.id).subscribe({
       next: () => {
         this.mangas = this.mangas.filter((x) => x.id !== manga.id);
-        this.notificationService.notifySuccess(this.translate.instant('MANGA-LIST.SUCCESS-DELETED'));
+        this.notificationService.notifySuccess(
+          this.translate.instant('MANGA-LIST.SUCCESS-DELETED'),
+        );
         this.closeDeleteModal();
       },
       error: (err) => {

@@ -1,6 +1,8 @@
 <h2 class="title">{{ 'MANGA-LIST.TITLE' | translate }}</h2>
 
-<button class="btn btn--ghost" (click)="openAddForm()">{{ 'MANGA-LIST.ADD-MANGA' | translate }}</button>
+<button class="btn btn--ghost" (click)="openAddForm()">
+  {{ 'MANGA-LIST.ADD-MANGA' | translate }}
+</button>
 
 <div *ngIf="showAddForm" class="panel panel--form">
   <div class="panel__header">
@@ -39,7 +41,9 @@
 
     <div class="form__actions">
       <button type="submit" class="btn btn--primary">{{ 'COMMON.SAVE' | translate }}</button>
-      <button type="button" class="btn btn--ghost" (click)="cancelAdd()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button type="button" class="btn btn--ghost" (click)="cancelAdd()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
     </div>
   </form>
 </div>
@@ -65,7 +69,9 @@
 </label>
 
 <div *ngIf="isLoading" class="muted">{{ 'COMMON.LOADING' | translate }}</div>
-<div *ngIf="!isLoading && mangas.length === 0" class="muted">{{ 'MANGA-LIST.NO-MANGA-FOUND' | translate }}</div>
+<div *ngIf="!isLoading && mangas.length === 0" class="muted">
+  {{ 'MANGA-LIST.NO-MANGA-FOUND' | translate }}
+</div>
 
 <div *ngIf="!isLoading && mangas.length > 0" class="panel">
   <ul class="mlist">
@@ -129,8 +135,12 @@
     </div>
 
     <div class="modal__footer">
-      <button type="button" class="btn btn--ghost" (click)="closeDeleteModal()">{{ 'COMMON.CANCEL' | translate }}</button>
-      <button type="button" class="btn btn--danger" (click)="confirmDelete()">{{ 'COMMON.DELETE' | translate }}</button>
+      <button type="button" class="btn btn--ghost" (click)="closeDeleteModal()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button type="button" class="btn btn--danger" (click)="confirmDelete()">
+        {{ 'COMMON.DELETE' | translate }}
+      </button>
     </div>
   </div>
 </div>
