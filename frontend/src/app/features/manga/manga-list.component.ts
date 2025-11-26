@@ -6,11 +6,12 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { ApiService } from '../../core/services/api.service';
 import { Manga } from '../../core/models/manga.model';
 import { NotificationService } from '../../core/services/notification.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-manga-list',
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, TranslateModule],
   templateUrl: './manga-list.component.html',
   styleUrls: ['./manga-list.component.scss'],
 })
@@ -37,6 +38,7 @@ export class MangaListComponent implements OnInit, OnDestroy {
   constructor(
     private api: ApiService,
     private notificationService: NotificationService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -98,14 +100,20 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.api.create(this.newManga).subscribe({
       next: (created) => {
         this.showAddForm = false;
-        this.notificationService.notifySuccess('Successfully created manga');
+        this.notificationService.notifySuccess(
+          this.translate.instant('MANGA-LIST.SUCCESS-CREATED'),
+        );
         this.api.bulkVolumes(created.id, 1, created.totalVolumes).subscribe({
           next: () => {
-            this.notificationService.notifySuccess('Successfully created volumes');
+            this.notificationService.notifySuccess(
+              this.translate.instant('MANGA-LIST.SUCCESS-CREATED-VOLUMES'),
+            );
             console.log('Volumes created');
           },
           error: (err) => {
-            this.notificationService.notifyError('Failed to create volumes');
+            this.notificationService.notifyError(
+              this.translate.instant('MANGA-LIST.FAILED-CREATE-VOLUMES'),
+            );
             console.error('Failed to create volumes:', err);
           },
         });
@@ -118,7 +126,7 @@ export class MangaListComponent implements OnInit, OnDestroy {
         };
       },
       error: (err) => {
-        this.notificationService.notifyError('Failed to create manga');
+        this.notificationService.notifyError(this.translate.instant('MANGA-LIST.FAILED-CREATE'));
         console.error(err);
       },
     });
@@ -168,12 +176,16 @@ export class MangaListComponent implements OnInit, OnDestroy {
         if (idx !== -1) {
           this.mangas = [...this.mangas.slice(0, idx), updated, ...this.mangas.slice(idx + 1)];
         }
-        this.notificationService.notifySuccess('Successfully updated manga');
+        this.notificationService.notifySuccess(
+          this.translate.instant('MANGA-LIST.SUCCESS-UPDATED'),
+        );
 
         this.cancelAdd();
       },
       error: (err: any) => {
-        this.notificationService.notifyError(`Failed to update manga: ${err}`);
+        this.notificationService.notifyError(
+          `${this.translate.instant('MANGA-LIST.FAILED-UPDATE')}: ${err}`,
+        );
         console.error('Update failed', err);
       },
     });
@@ -202,11 +214,13 @@ export class MangaListComponent implements OnInit, OnDestroy {
     this.api.delete(manga.id).subscribe({
       next: () => {
         this.mangas = this.mangas.filter((x) => x.id !== manga.id);
-        this.notificationService.notifySuccess('Successfully deleted manga');
+        this.notificationService.notifySuccess(
+          this.translate.instant('MANGA-LIST.SUCCESS-DELETED'),
+        );
         this.closeDeleteModal();
       },
       error: (err) => {
-        this.notificationService.notifyError('Failed to delete manga');
+        this.notificationService.notifyError(this.translate.instant('MANGA-LIST.FAILED-DELETE'));
         console.log(err);
         this.closeDeleteModal();
       },

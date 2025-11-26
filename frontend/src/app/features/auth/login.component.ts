@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
@@ -22,6 +22,7 @@ export class LoginComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
+    private translate: TranslateService,
   ) {}
 
   togglePassword() {
@@ -39,7 +40,7 @@ export class LoginComponent {
         this.router.navigateByUrl('/manga');
       },
       error: (e) => {
-        this.errorMsg = e?.error?.error ?? 'Login failed';
+        this.errorMsg = e?.error?.error ?? this.translate.instant('LOGIN.FAILED');
         this.loading = false;
       },
       complete: () => {

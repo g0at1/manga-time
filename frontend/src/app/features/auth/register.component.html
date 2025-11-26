@@ -5,7 +5,7 @@
 
     <form #form="ngForm" (ngSubmit)="register(form)" novalidate>
       <div class="field">
-        <label class="label" for="email">Email</label>
+        <label class="label" for="email">{{ 'COMMON.EMAIL' | translate }}</label>
         <div class="input-underline">
           <input
             id="email"

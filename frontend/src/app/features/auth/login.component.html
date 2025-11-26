@@ -1,12 +1,12 @@
 <section class="auth-wrapper">
   <div class="auth-card">
-    <h1 class="title">Login</h1>
+    <h1 class="title">{{ 'LOGIN.TITLE' | translate }}</h1>
     <p class="subtitle">{{ 'LOGIN.ENTER-CREDENTIALS' | translate }}</p>
 
     <form #form="ngForm" (ngSubmit)="login()" novalidate>
       <!-- Email -->
       <div class="field">
-        <label class="label" for="email">Email</label>
+        <label class="label" for="email">{{ 'COMMON.EMAIL' | translate }}</label>
         <div class="input-underline">
           <input
             id="email"
@@ -24,7 +24,7 @@
 
       <!-- Password -->
       <div class="field">
-        <label class="label" for="password">Password</label>
+        <label class="label" for="password">{{ 'COMMON.PASSWORD' | translate }}</label>
         <div class="input-underline with-action">
           <input
             id="password"
@@ -36,7 +36,7 @@
             autocomplete="current-password"
           />
           <button type="button" class="ghost-action" (click)="togglePassword()">
-            {{ showPassword ? 'Hide' : 'Show' }}
+            {{ (showPassword ? 'COMMON.HIDE' : 'COMMON.SHOW') | translate }}
           </button>
           <span class="underline"></span>
         </div>
@@ -45,10 +45,10 @@
       <div class="actions">
         <button type="submit" class="btn primary" [disabled]="loading" [class.loading]="loading">
           <span class="spinner" *ngIf="loading" aria-hidden="true"></span>
-          {{ loading ? 'Logging...' : 'Login' }}
+          {{ (loading ? 'LOGIN.LOGGING' : 'LOGIN.LOGIN') | translate }}
         </button>
 
-        <a routerLink="/auth/register" class="link">Create an account</a>
+        <a routerLink="/auth/register" class="link">{{ 'LOGIN.CREATE-ACCOUNT' | translate }}</a>
       </div>
 
       <div class="alert error" *ngIf="errorMsg">
