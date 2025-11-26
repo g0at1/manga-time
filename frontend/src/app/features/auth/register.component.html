@@ -1,10 +1,9 @@
 <section class="auth-wrapper">
   <div class="auth-card">
-    <h1 class="title">Create Account</h1>
-    <p class="subtitle">Fill in your details to register.</p>
+    <h1 class="title">{{ 'REGISTER.CREATE-ACCOUNT' | translate }}</h1>
+    <p class="subtitle">{{ 'REGISTER.DESCRIPTION' | translate }}</p>
 
     <form #form="ngForm" (ngSubmit)="register(form)" novalidate>
-      <!-- Email -->
       <div class="field">
         <label class="label" for="email">Email</label>
         <div class="input-underline">
@@ -20,16 +19,15 @@
           <span class="underline"></span>
         </div>
         <small class="error" *ngIf="form.submitted && form.controls['email']?.errors?.['required']"
-          >Email is required.</small
+          >{{ 'REGISTER.VALIDATION.REQUIRED-EMAIL' | translate }}.</small
         >
         <small class="error" *ngIf="form.submitted && form.controls['email']?.errors?.['email']"
-          >Enter a valid email.</small
+          >{{ 'REGISTER.VALIDATION.INVALID-EMAIL' | translate }}.</small
         >
       </div>
 
-      <!-- Password -->
       <div class="field">
-        <label class="label" for="password">Password</label>
+        <label class="label" for="password">{{ 'REGISTER.PASSWORD' | translate }}</label>
         <div class="input-underline">
           <input
             id="password"
@@ -45,18 +43,17 @@
         <small
           class="error"
           *ngIf="form.submitted && form.controls['password']?.errors?.['required']"
-          >Password is required.</small
+          >{{ 'REGISTER.VALIDATION.REQUIRED-PASSWORD' | translate }}.</small
         >
         <small
           class="error"
           *ngIf="form.submitted && form.controls['password']?.errors?.['minlength']"
-          >Minimum 6 characters.</small
+          >{{ 'REGISTER.VALIDATION.PASSWORD-LENGTH' | translate }}.</small
         >
       </div>
 
-      <!-- Confirm Password -->
       <div class="field">
-        <label class="label" for="confirm">Confirm Password</label>
+        <label class="label" for="confirm">{{ 'REGISTER.CONFIRM-PASSWORD' | translate }}</label>
         <div class="input-underline">
           <input
             id="confirm"
@@ -71,16 +68,18 @@
         <small
           class="error"
           *ngIf="form.submitted && confirmPassword && confirmPassword !== password"
-          >Passwords do not match.</small
+          >{{ 'REGISTER.VALIDATION.PASSWORD-NOT-MATCH' | translate }}</small
         >
       </div>
 
       <div class="actions">
         <button type="submit" class="btn primary" [disabled]="loading" [class.loading]="loading">
           <span class="spinner" *ngIf="loading" aria-hidden="true"></span>
-          {{ loading ? 'Creating…' : 'Create Account' }}
+          {{
+            (loading ? 'REGISTER.LOADING.CREATING' : 'REGISTER.LOADING.CREATE-ACCOUNT') | translate
+          }}
         </button>
-        <a routerLink="/auth/login" class="link">Back to login</a>
+        <a routerLink="/auth/login" class="link">{{ 'REGISTER.BACK' | translate }}</a>
       </div>
 
       <div class="alert success" *ngIf="successMsg">{{ successMsg }}</div>
