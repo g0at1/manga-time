@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { MangaDetail, Progress } from '../../core/models/manga.model';
 import { combineLatest, forkJoin } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-manga-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './manga-detail.component.html',
   styleUrls: ['./manga-detail.component.scss'],
 })
@@ -21,6 +22,7 @@ export class MangaDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class MangaDetailComponent implements OnInit {
         next: () => this.api.getProgress(this.mangaId).subscribe((p) => (this.progress = p)),
         error: () => {
           this.readSet = previousState;
-          alert('Failed to update read status');
+          alert(this.translate.instant('MANGA-DETAIL.FAILED-UPDATE-STATUS'));
         },
       });
 
@@ -63,7 +65,7 @@ export class MangaDetailComponent implements OnInit {
 
       if (previousUnreads.length > 0) {
         const nums = previousUnreads.map((v) => v.number).join(', ');
-        const shouldMarkPrev = confirm(`Mark all previous tomes as read?`);
+        const shouldMarkPrev = confirm(this.translate.instant('MANGA-DETAIL.MARK-PREVIOUS-READ'));
 
         if (shouldMarkPrev) {
           idsToMark = [...previousUnreads.map((v) => v.id), volume.id];
@@ -79,7 +81,7 @@ export class MangaDetailComponent implements OnInit {
       },
       error: () => {
         this.readSet = previousState;
-        alert('Failed to update read status');
+        alert(this.translate.instant('MANGA-DETAIL.FAILED-UPDATE-STATUS'));
       },
     });
   }

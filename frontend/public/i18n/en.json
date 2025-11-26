@@ -1,10 +1,27 @@
 {
+  "COMMON": {
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "LOADING": "Loading…",
+    "SHOW": "Show",
+    "HIDE": "Hide"
+  },
   "LOGIN": {
-    "ENTER-CREDENTIALS": "Enter your credentials to continue"
+    "TITLE": "Login",
+    "ENTER-CREDENTIALS": "Enter your credentials to continue",
+    "LOGGING": "Logging...",
+    "LOGIN": "Login",
+    "CREATE-ACCOUNT": "Create an account",
+    "FAILED": "Login failed"
   },
   "NAVBAR": {
     "MY-LIBRARY": "My library",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "MANGA": "Manga"
   },
   "REGISTER": {
     "CREATE-ACCOUNT": "Create an account",
@@ -22,6 +39,44 @@
       "CREATING": "Creating",
       "CREATE-ACCOUNT": "Create account"
     },
-    "BACK": "Back to Login"
+    "BACK": "Back to Login",
+    "SUCCESS": "Account created successfully! You can now log in.",
+    "FAILED": "Registration failed."
+  },
+  "VERIFY-EMAIL": {
+    "TITLE": "Email verification",
+    "VERIFYING": "Verifying your email…",
+    "SUCCESS": "✅ Your email has been verified. You can now log in.",
+    "ERROR": "❌ Verification failed. The link is invalid or expired."
+  },
+  "MANGA-LIST": {
+    "TITLE": "Manga List",
+    "ADD-MANGA": "+ Add Manga",
+    "EDIT-MANGA": "Edit Manga",
+    "ADD-MANGA-FORM": "Add Manga",
+    "FIELD-TITLE": "Title",
+    "FIELD-AUTHOR": "Author",
+    "FIELD-TOTAL-VOLUMES": "Total Volumes",
+    "FIELD-COVER-URL": "Cover URL",
+    "SEARCH-PLACEHOLDER": "Search by title…",
+    "NO-MANGA-FOUND": "No manga found.",
+    "DELETE-MANGA": "Delete manga",
+    "DELETE-CONFIRM": "Are you sure you want to delete",
+    "SUCCESS-CREATED": "Successfully created manga",
+    "SUCCESS-CREATED-VOLUMES": "Successfully created volumes",
+    "FAILED-CREATE-VOLUMES": "Failed to create volumes",
+    "FAILED-CREATE": "Failed to create manga",
+    "SUCCESS-UPDATED": "Successfully updated manga",
+    "FAILED-UPDATE": "Failed to update manga",
+    "SUCCESS-DELETED": "Successfully deleted manga",
+    "FAILED-DELETE": "Failed to delete manga"
+  },
+  "MANGA-DETAIL": {
+    "VOLUME": "Vol",
+    "FAILED-UPDATE-STATUS": "Failed to update read status",
+    "MARK-PREVIOUS-READ": "Mark all previous tomes as read?"
+  },
+  "LIBRARY": {
+    "TITLE": "My Library"
   }
 }

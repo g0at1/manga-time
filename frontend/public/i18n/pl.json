@@ -1,10 +1,27 @@
 {
+  "COMMON": {
+    "EMAIL": "Email",
+    "PASSWORD": "Hasło",
+    "SAVE": "Zapisz",
+    "CANCEL": "Anuluj",
+    "DELETE": "Usuń",
+    "EDIT": "Edytuj",
+    "LOADING": "Ładowanie…",
+    "SHOW": "Pokaż",
+    "HIDE": "Ukryj"
+  },
   "LOGIN": {
-    "ENTER-CREDENTIALS": "Wprowadź swoje dane uwierzytelniające, aby kontynuować."
+    "TITLE": "Logowanie",
+    "ENTER-CREDENTIALS": "Wprowadź swoje dane uwierzytelniające, aby kontynuować.",
+    "LOGGING": "Logowanie...",
+    "LOGIN": "Zaloguj się",
+    "CREATE-ACCOUNT": "Utwórz konto",
+    "FAILED": "Logowanie nieudane"
   },
   "NAVBAR": {
     "MY-LIBRARY": "Moja biblioteka",
-    "LOGOUT": "Wyloguj"
+    "LOGOUT": "Wyloguj",
+    "MANGA": "Manga"
   },
   "REGISTER": {
     "CREATE-ACCOUNT": "Stwórz konto",
@@ -22,6 +39,44 @@
       "CREATING": "Tworzenie",
       "CREATE-ACCOUNT": "Utwórz konto"
     },
-    "BACK": "Powrót do logowania"
+    "BACK": "Powrót do logowania",
+    "SUCCESS": "Konto zostało pomyślnie utworzone! Możesz się teraz zalogować.",
+    "FAILED": "Rejestracja nieudana."
+  },
+  "VERIFY-EMAIL": {
+    "TITLE": "Weryfikacja email",
+    "VERIFYING": "Weryfikowanie twojego adresu email…",
+    "SUCCESS": "✅ Twój adres email został zweryfikowany. Możesz się teraz zalogować.",
+    "ERROR": "❌ Weryfikacja nieudana. Link jest nieprawidłowy lub wygasł."
+  },
+  "MANGA-LIST": {
+    "TITLE": "Lista mang",
+    "ADD-MANGA": "+ Dodaj mangę",
+    "EDIT-MANGA": "Edytuj mangę",
+    "ADD-MANGA-FORM": "Dodaj mangę",
+    "FIELD-TITLE": "Tytuł",
+    "FIELD-AUTHOR": "Autor",
+    "FIELD-TOTAL-VOLUMES": "Liczba tomów",
+    "FIELD-COVER-URL": "URL okładki",
+    "SEARCH-PLACEHOLDER": "Szukaj po tytule…",
+    "NO-MANGA-FOUND": "Nie znaleziono mangi.",
+    "DELETE-MANGA": "Usuń mangę",
+    "DELETE-CONFIRM": "Czy na pewno chcesz usunąć",
+    "SUCCESS-CREATED": "Pomyślnie utworzono mangę",
+    "SUCCESS-CREATED-VOLUMES": "Pomyślnie utworzono tomy",
+    "FAILED-CREATE-VOLUMES": "Nie udało się utworzyć tomów",
+    "FAILED-CREATE": "Nie udało się utworzyć mangi",
+    "SUCCESS-UPDATED": "Pomyślnie zaktualizowano mangę",
+    "FAILED-UPDATE": "Nie udało się zaktualizować mangi",
+    "SUCCESS-DELETED": "Pomyślnie usunięto mangę",
+    "FAILED-DELETE": "Nie udało się usunąć mangi"
+  },
+  "MANGA-DETAIL": {
+    "VOLUME": "Tom",
+    "FAILED-UPDATE-STATUS": "Nie udało się zaktualizować statusu przeczytania",
+    "MARK-PREVIOUS-READ": "Oznaczyć wszystkie poprzednie tomy jako przeczytane?"
+  },
+  "LIBRARY": {
+    "TITLE": "Moja biblioteka"
   }
 }

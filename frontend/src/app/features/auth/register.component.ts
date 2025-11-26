@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
@@ -23,6 +23,7 @@ export class RegisterComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
+    private translate: TranslateService,
   ) {}
 
   register(form: NgForm) {
@@ -31,18 +32,18 @@ export class RegisterComponent {
 
     if (!form.valid || this.loading) return;
     if (this.password !== this.confirmPassword) {
-      this.errorMsg = 'Passwords do not match.';
+      this.errorMsg = this.translate.instant('REGISTER.VALIDATION.PASSWORD-NOT-MATCH');
       return;
     }
 
     this.loading = true;
     this.auth.register({ email: this.email, password: this.password }).subscribe({
       next: () => {
-        this.successMsg = 'Account created successfully! You can now log in.';
+        this.successMsg = this.translate.instant('REGISTER.SUCCESS');
         setTimeout(() => this.router.navigateByUrl('/auth/login'), 1200);
       },
       error: (e) => {
-        this.errorMsg = e?.error?.error ?? 'Registration failed.';
+        this.errorMsg = e?.error?.error ?? this.translate.instant('REGISTER.FAILED');
       },
       complete: () => (this.loading = false),
     });

@@ -27,7 +27,7 @@
       <span class="volume-tile__check" aria-hidden="true">✓</span>
 
       <div class="volume-tile__content">
-        <div class="volume-tile__title">Tom {{ v.number }}</div>
+        <div class="volume-tile__title">{{ 'MANGA-DETAIL.VOLUME' | translate }} {{ v.number }}</div>
         <div class="volume-tile__subtitle" *ngIf="v.title">— {{ v.title }}</div>
       </div>
     </label>

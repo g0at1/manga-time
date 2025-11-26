@@ -2,18 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-verify-email',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   template: `
     <div class="verify">
-      <h2>Email verification</h2>
+      <h2>{{ 'VERIFY-EMAIL.TITLE' | translate }}</h2>
 
-      <p *ngIf="state === 'loading'">Verifying your email…</p>
-      <p *ngIf="state === 'success'">✅ Your email has been verified. You can now log in.</p>
-      <p *ngIf="state === 'error'">❌ Verification failed. The link is invalid or expired.</p>
+      <p *ngIf="state === 'loading'">{{ 'VERIFY-EMAIL.VERIFYING' | translate }}</p>
+      <p *ngIf="state === 'success'">{{ 'VERIFY-EMAIL.SUCCESS' | translate }}</p>
+      <p *ngIf="state === 'error'">{{ 'VERIFY-EMAIL.ERROR' | translate }}</p>
     </div>
   `,
 })

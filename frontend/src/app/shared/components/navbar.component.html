@@ -16,7 +16,7 @@
           class="link"
           role="menuitem"
           (click)="closeMenu()"
-          >Manga</a
+          >{{ 'NAVBAR.MANGA' | translate }}</a
         >
       </li>
       <li role="none">
@@ -57,12 +57,12 @@
         [routerLinkActiveOptions]="{ exact: true }"
         class="mitem"
         (click)="closeMenu()"
-        >Manga</a
+        >{{ 'NAVBAR.MANGA' | translate }}</a
       >
       <a routerLink="/library" routerLinkActive="is-active" class="mitem" (click)="closeMenu()">{{
         'NAVBAR.MY-LIBRARY' | translate
       }}</a>
-      <button class="mitem mitem--danger" (click)="logout()">Logout</button>
+      <button class="mitem mitem--danger" (click)="logout()">{{ 'NAVBAR.LOGOUT' | translate }}</button>
     </div>
   </div>
 </header>

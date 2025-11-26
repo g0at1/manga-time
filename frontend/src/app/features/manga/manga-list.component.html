@@ -1,28 +1,28 @@
-<h2 class="title">Manga List</h2>
+<h2 class="title">{{ 'MANGA-LIST.TITLE' | translate }}</h2>
 
-<button class="btn btn--ghost" (click)="openAddForm()">+ Add Manga</button>
+<button class="btn btn--ghost" (click)="openAddForm()">{{ 'MANGA-LIST.ADD-MANGA' | translate }}</button>
 
 <div *ngIf="showAddForm" class="panel panel--form">
   <div class="panel__header">
     <h3 class="panel__title">
-      {{ isEditing ? 'Edit Manga' : 'Add Manga' }}
+      {{ (isEditing ? 'MANGA-LIST.EDIT-MANGA' : 'MANGA-LIST.ADD-MANGA-FORM') | translate }}
     </h3>
     <button type="button" class="panel__close" (click)="cancelAdd()">×</button>
   </div>
 
   <form class="form" (ngSubmit)="isEditing ? updateManga() : createManga()">
     <label class="form__field">
-      <span class="form__label">Title</span>
+      <span class="form__label">{{ 'MANGA-LIST.FIELD-TITLE' | translate }}</span>
       <input class="form__input" [(ngModel)]="newManga.title" name="title" required />
     </label>
 
     <label class="form__field">
-      <span class="form__label">Author</span>
+      <span class="form__label">{{ 'MANGA-LIST.FIELD-AUTHOR' | translate }}</span>
       <input class="form__input" [(ngModel)]="newManga.author" name="author" />
     </label>
 
     <label class="form__field">
-      <span class="form__label">Total Volumes</span>
+      <span class="form__label">{{ 'MANGA-LIST.FIELD-TOTAL-VOLUMES' | translate }}</span>
       <input
         class="form__input"
         type="number"
@@ -33,13 +33,13 @@
     </label>
 
     <label class="form__field">
-      <span class="form__label">Cover URL</span>
+      <span class="form__label">{{ 'MANGA-LIST.FIELD-COVER-URL' | translate }}</span>
       <input class="form__input" [(ngModel)]="newManga.coverUrl" name="coverUrl" />
     </label>
 
     <div class="form__actions">
-      <button type="submit" class="btn btn--primary">Save</button>
-      <button type="button" class="btn btn--ghost" (click)="cancelAdd()">Cancel</button>
+      <button type="submit" class="btn btn--primary">{{ 'COMMON.SAVE' | translate }}</button>
+      <button type="button" class="btn btn--ghost" (click)="cancelAdd()">{{ 'COMMON.CANCEL' | translate }}</button>
     </div>
   </form>
 </div>
@@ -48,7 +48,7 @@
   <input
     class="search__input"
     type="text"
-    placeholder="Search by title…"
+    [placeholder]="'MANGA-LIST.SEARCH-PLACEHOLDER' | translate"
     [(ngModel)]="query"
     (ngModelChange)="onQueryChange($event)"
     aria-label="Search manga"
@@ -64,8 +64,8 @@
   </button>
 </label>
 
-<div *ngIf="isLoading" class="muted">Loading…</div>
-<div *ngIf="!isLoading && mangas.length === 0" class="muted">No manga found.</div>
+<div *ngIf="isLoading" class="muted">{{ 'COMMON.LOADING' | translate }}</div>
+<div *ngIf="!isLoading && mangas.length === 0" class="muted">{{ 'MANGA-LIST.NO-MANGA-FOUND' | translate }}</div>
 
 <div *ngIf="!isLoading && mangas.length > 0" class="panel">
   <ul class="mlist">
@@ -96,7 +96,7 @@
         <div class="mlist__menu" *ngIf="openMenuId === m.id">
           <button type="button" class="mlist__menu-item" (click)="onEdit(m, $event)">
             <span class="mlist__menu-icon">✎</span>
-            <span class="mlist__menu-label">Edit</span>
+            <span class="mlist__menu-label">{{ 'COMMON.EDIT' | translate }}</span>
           </button>
 
           <button
@@ -105,7 +105,7 @@
             (click)="openDeleteModal(m, $event)"
           >
             <span class="mlist__menu-icon">🗑</span>
-            <span class="mlist__menu-label">Delete</span>
+            <span class="mlist__menu-label">{{ 'COMMON.DELETE' | translate }}</span>
           </button>
         </div>
       </div>
@@ -117,20 +117,20 @@
 <div class="modal" *ngIf="deleteConfirmVisible" (click)="closeDeleteModal()">
   <div class="modal__content" (click)="$event.stopPropagation()">
     <div class="modal__header">
-      <h3 class="modal__title">Delete manga</h3>
+      <h3 class="modal__title">{{ 'MANGA-LIST.DELETE-MANGA' | translate }}</h3>
     </div>
 
     <div class="modal__body">
       <p>
-        Are you sure you want to delete
+        {{ 'MANGA-LIST.DELETE-CONFIRM' | translate }}
         <strong>{{ mangaToDelete?.title }}</strong
         >?
       </p>
     </div>
 
     <div class="modal__footer">
-      <button type="button" class="btn btn--ghost" (click)="closeDeleteModal()">Cancel</button>
-      <button type="button" class="btn btn--danger" (click)="confirmDelete()">Delete</button>
+      <button type="button" class="btn btn--ghost" (click)="closeDeleteModal()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button type="button" class="btn btn--danger" (click)="confirmDelete()">{{ 'COMMON.DELETE' | translate }}</button>
     </div>
   </div>
 </div>
