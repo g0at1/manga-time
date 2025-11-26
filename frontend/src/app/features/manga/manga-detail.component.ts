@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { MangaDetail, Progress } from '../../core/models/manga.model';
-import { combineLatest } from 'rxjs';
+import { combineLatest, forkJoin } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -36,16 +36,49 @@ export class MangaDetailComponent implements OnInit {
     });
   }
 
-  onToggle(volumeId: string, checked: boolean) {
-    const wasRead = this.readSet.has(volumeId);
-    checked ? this.readSet.add(volumeId) : this.readSet.delete(volumeId);
+  onToggle(volume: { id: string; number: number }, checked: boolean) {
+    const wasRead = this.readSet.has(volume.id);
+    const previousState = new Set(this.readSet);
 
-    const call$ = checked ? this.api.markRead(volumeId) : this.api.unmarkRead(volumeId);
-    call$.subscribe({
-      next: () => this.api.getProgress(this.mangaId).subscribe((p) => (this.progress = p)),
+    if (!checked) {
+      this.readSet.delete(volume.id);
+
+      this.api.unmarkRead(volume.id).subscribe({
+        next: () => this.api.getProgress(this.mangaId).subscribe((p) => (this.progress = p)),
+        error: () => {
+          this.readSet = previousState;
+          alert('Failed to update read status');
+        },
+      });
+
+      return;
+    }
+
+    let idsToMark: string[] = [volume.id];
+
+    if (this.data) {
+      const previousUnreads = this.data.volumes
+        .filter((v) => v.number < volume.number && !this.readSet.has(v.id))
+        .sort((a, b) => a.number - b.number);
+
+      if (previousUnreads.length > 0) {
+        const nums = previousUnreads.map((v) => v.number).join(', ');
+        const shouldMarkPrev = confirm(`Mark all previous tomes as read?`);
+
+        if (shouldMarkPrev) {
+          idsToMark = [...previousUnreads.map((v) => v.id), volume.id];
+        }
+      }
+    }
+
+    idsToMark.forEach((id) => this.readSet.add(id));
+
+    forkJoin(idsToMark.map((id) => this.api.markRead(id))).subscribe({
+      next: () => {
+        this.api.getProgress(this.mangaId).subscribe((p) => (this.progress = p));
+      },
       error: () => {
-        if (wasRead) this.readSet.add(volumeId);
-        else this.readSet.delete(volumeId);
+        this.readSet = previousState;
         alert('Failed to update read status');
       },
     });

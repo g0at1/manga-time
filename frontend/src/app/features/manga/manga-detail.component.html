@@ -21,7 +21,7 @@
         type="checkbox"
         class="volume-tile__checkbox"
         [checked]="readSet.has(v.id)"
-        (change)="onToggle(v.id, cb.checked)"
+        (change)="onToggle(v, cb.checked)"
       />
 
       <span class="volume-tile__check" aria-hidden="true">✓</span>
