@@ -98,8 +98,9 @@ jobs:
             7.0.x
 
       - name: Restore tools (if tools manifest exists)
+        working-directory: backend
         run: |
-          if [ -f "./backend/.config/dotnet-tools.json" ] || [ -f "./.config/dotnet-tools.json" ]; then
+          if [ -f ".config/dotnet-tools.json" ]; then
             dotnet tool restore
           else
             echo "No tools manifest found; installing dotnet-format globally..."
