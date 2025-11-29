@@ -13,13 +13,16 @@ public class EmailSenderService : IEmailSender
         _settings = options.Value;
     }
 
-    public async Task SendEmailAsync(string to, string subject, string body)
+    public async Task SendEmailAsync(string to, string subject, string body, bool isHtml)
     {
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress(_settings.FromName, _settings.FromAddress));
         message.To.Add(MailboxAddress.Parse(to));
         message.Subject = subject;
-        message.Body = new TextPart("plain") { Text = body };
+        message.Body = new TextPart(isHtml ? "html" : "plain")
+        {
+            Text = body
+        };
 
         using (var client = new MailKit.Net.Smtp.SmtpClient())
         {

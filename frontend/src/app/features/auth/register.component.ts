@@ -44,6 +44,7 @@ export class RegisterComponent {
       },
       error: (e) => {
         this.errorMsg = e?.error?.error ?? this.translate.instant('REGISTER.FAILED');
+        this.loading = false;
       },
       complete: () => (this.loading = false),
     });

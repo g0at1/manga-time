@@ -17,6 +17,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<IMangaService, MangaService>();
         services.AddScoped<ILibraryService, LibraryService>();
+        services.AddScoped<IEmailTemplateRenderer, EmailTemplateRenderer>();
+        services.AddScoped<IEmailSender, EmailSenderService>();
 
         var key = Encoding.UTF8.GetBytes(cfg["Jwt:Key"]!);
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
