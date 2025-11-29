@@ -19,13 +19,15 @@ public class AuthController : ControllerBase
     private readonly IJwtTokenService _jwt;
     private readonly IEmailSender _emailSender;
     private readonly IConfiguration _configuration;
+    private readonly IEmailTemplateRenderer _emailTemplateRenderer;
 
-    public AuthController(AppDbContext db, IJwtTokenService jwt, IEmailSender emailSender, IConfiguration configuration)
+    public AuthController(AppDbContext db, IJwtTokenService jwt, IEmailSender emailSender, IConfiguration configuration, IEmailTemplateRenderer emailTemplateRenderer)
     {
         _db = db;
         _jwt = jwt;
         _emailSender = emailSender;
         _configuration = configuration;
+        _emailTemplateRenderer = emailTemplateRenderer;
     }
 
     [HttpPost("register")]
@@ -55,14 +57,13 @@ public class AuthController : ControllerBase
         _db.EmailVerificationTokens.Add(emailToken);
         await _db.SaveChangesAsync();
         var verifyUrl = $"{_configuration["Frontend:BaseUrl"]}/verify-email?token={Uri.EscapeDataString(rawToken)}";
+        var htmlBody = await _emailTemplateRenderer.RenderVerifyEmailTemplateAsync(verifyUrl);
 
         await _emailSender.SendEmailAsync(
             user.Email,
             "Confirm your MangaTime account",
-            $@"Hi,
-Click the link below to confirm your account:
-{verifyUrl}
-If you didn't request this, you can ignore this email."
+            htmlBody,
+            isHtml: true
         );
         return Ok(new { message = "registered" });
     }
