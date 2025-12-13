@@ -33,10 +33,17 @@
 
     <!-- Actions -->
     <div class="actions">
-      <select class="lang-select" [value]="currentLang" (change)="changeLang($event)">
-        <option value="en">EN</option>
-        <option value="pl">PL</option>
-      </select>
+      <div class="lang">
+        <select
+          class="lang-select"
+          [value]="currentLang"
+          (change)="changeLang($event)"
+          aria-label="Language"
+        >
+          <option value="en">EN</option>
+          <option value="pl">PL</option>
+        </select>
+      </div>
       <button class="btn btn--ghost" (click)="logout()" aria-label="Logout">
         {{ 'NAVBAR.LOGOUT' | translate }}
       </button>
